@@ -41,17 +41,21 @@ async function publish(): Promise<void> {
       packageVersion += `-${packageTag}-${randomUUID()}`;
     }
 
-    await new Promise<void>((resolve) => {
+    await new Promise<void>((resolve, reject) => {
+      const process = spawn('npm', ['version', packageVersion], {
+        cwd: path.resolve('./packages', packageFolderName),
+        stdio: 'inherit',
+        shell: true,
+      });
+
+      process.on('close', () => resolve());
+      process.on('error', (err) => reject(err));
+    });
+
+    await new Promise<void>((resolve, reject) => {
       const process = spawn(
         'npm',
-        [
-          'publish',
-          `${packageJson.name}@${packageVersion}`,
-          '--tag',
-          packageTag,
-          '--access',
-          'public',
-        ],
+        ['publish', '--tag', packageTag, '--access', 'public'],
         {
           cwd: path.resolve('./packages', packageFolderName),
           stdio: 'inherit',
@@ -60,6 +64,7 @@ async function publish(): Promise<void> {
       );
 
       process.on('close', () => resolve());
+      process.on('error', (err) => reject(err));
     });
 
     console.log(`npm i ${packageJson.name}@${packageVersion}`);
