@@ -1,7 +1,12 @@
 {
-  "name": "@g2g/packages",
+  "name": "@gravitytwog/packages",
   "version": "0.0.1",
   "description": "g2g packages",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GravityTwoG/g2g.git"
+  },
+  "private": false,
   "type": "module",
   "main": "index.js",
   "workspaces": [
@@ -15,7 +20,8 @@
     "format:check": "prettier --check .",
     "lint-staged": "lint-staged",
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.ts --configPlugin @rollup/plugin-typescript",
-    "build:analyze": "cross-env NODE_ENV=production ANALYZE=true rollup --config ./rollup.config.ts --configPlugin @rollup/plugin-typescript"
+    "build:analyze": "cross-env NODE_ENV=production ANALYZE=true rollup --config ./rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "publish": "tsx ./scripts/publish.ts"
   },
   "author": "Marsel Abazbekov",
   "license": "MIT",
@@ -47,6 +53,7 @@
     "simple-git": "^3.27.0",
     "storybook": "^8.4.7",
     "tslib": "^2.8.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.19.0"
   },

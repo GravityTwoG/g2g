@@ -33,7 +33,6 @@ async function publish(): Promise<void> {
     if (currentBranch !== mainBranch) {
       packageTag = currentBranch.replace(/\//g, '-');
     }
-
     let packageVersion: string =
       (packageJson.version as string).match(
         /^([0-9]+\.[0-9]+\.[0-9]+)/g,
@@ -44,8 +43,15 @@ async function publish(): Promise<void> {
 
     await new Promise<void>((resolve) => {
       const process = spawn(
-        'yarn',
-        ['publish', '--tag', packageTag, '--new-version', packageVersion],
+        'npm',
+        [
+          'publish',
+          `${packageJson.name}@${packageVersion}`,
+          '--tag',
+          packageTag,
+          '--access',
+          'public',
+        ],
         {
           cwd: path.resolve('./packages', packageFolderName),
           stdio: 'inherit',

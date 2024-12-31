@@ -1,7 +1,12 @@
 {
-  "name": "@g2g/react-use-carousel",
-  "description": "React useCarousel hook",
+  "name": "@gravitytwog/react-use-carousel",
   "version": "0.0.1",
+  "description": "React useCarousel hook",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GravityTwoG/g2g.git"
+  },
+  "private": false,
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
